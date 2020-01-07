@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bestify</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style type="text/css">
+        .player-side:hover {
+            background-color: #FCF;
+        }
+    </style>
+</head>
+<body>
+<div class="container p-4">
+  <div id="loading">
+    <div class="col">
+      <div class="row justify-content-center">
+        Loading...
+      </div>
+    </div>
+  </div>
+
+  <div id="login-container" class="row d-none">
+    <div class="col">
+      <div class="row justify-content-center">
+        <button type="button" class="btn btn-lg btn-primary" onclick="loginWithSpotify()">Login to Spotify</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="playlist-selector" class="row d-none">
+    <div class="col">
+      <h1 class="row justify-content-center">
+Select a playlist to Bestify
+      </h1>
+      <div class="row justify-content-center">
+      <div id="playlist-selector-list" class="list-group">
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <div id="start-button" class="row d-none">
+    <div class="col">
+      <div class="row justify-content-center">
+        <h1>Bestifying <em id="start-button-playlist-name"></em></h1>
+      </div>
+      <div class="row">
+        <div class="col text-center">
+          <button type="button" class="btn btn-lg btn-primary" onclick="startPressed()">Start</button>
+          <button type="button" class="btn btn-lg btn-danger" onclick="changePlaylist()">Change Playlist</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="main-player" class="row d-none">
+    <div class="col-6 player-side" id="left-side">
+      <h2 id="title-left"></h2>
+      <h3 id="artist-left"></h3>
+      <audio controls loop id="preview-left"></audio>
+    </div>
+
+    <div class="col-6 player-side" id="right-side">
+      <h2 id="title-right"></h2>
+      <h3 id="artist-right"></h3>
+      <audio controls loop id="preview-right"></audio>
+    </div>
+  </div>
+
+  <div id="list-container" class="row d-none">
+    <div class="col">
+      <ol id="sorted-list">
+      </ol>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="spotify.js"></script>
+<script type="text/javascript" src="index.js"></script>
+</body>
+</html>
