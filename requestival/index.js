@@ -43,7 +43,7 @@ function populateTable() {
 
         if (item.links.length > 0) {
             $(row).find('.track-links')
-                .attr('href', '#')
+                .attr('href', 'javascript:;')
                 .attr('tabindex', '0')
                 .popover({
                 title: 'Links',
@@ -73,7 +73,7 @@ function comp(a, b) {
     return 0;
 }
 
-let currentSort = ['date', false];
+let currentSort = ['date', true];
 function changeSort(evt) {
     let key = evt.target.dataset.sortkey;
     let [currentKey, desc] = currentSort;
@@ -83,26 +83,31 @@ function changeSort(evt) {
         desc = false;
     }
 
-    $('th.sortable')
+    $('.sortable')
         .removeClass('sort-asc')
         .removeClass('sort-desc');
     
+    $(`.sortable[data-sortkey=${key}]`)
+        .addClass('sort-' + (desc ? 'desc' : 'asc'));
+
+    sortList(key, desc);
+}
+
+function sortList(key, desc) {
     if (desc) {
         items.sort((a, b) => comp(b[key], a[key]));
-        $(evt.target).addClass('sort-desc');
     } else {
         items.sort((a, b) => comp(a[key], b[key]));
-        $(evt.target).addClass('sort-asc');
     }
 
-    populateTable();
-
     currentSort = [key, desc];
+
+    populateTable();
 }
 
 function initialise() {
     refresh().then (function() {
-        populateTable();
-        $('th.sortable').on('click', changeSort);
+        sortList(...currentSort);
+        $('.sortable').on('click', changeSort);
     });
 }

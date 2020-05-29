@@ -7,33 +7,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <title>JJJ Requestival</title>
-    <style type="text/css">
-      #requestival-songs > tr > td:first-child {
-        white-space: nowrap;
-      }
-
-      th {
-        white-space: nowrap;
-      }
-
-      th.sortable {
-        cursor: pointer;;
-      }
-
-      th.sortable:hover {
-        background-color: #777; 
-      }
-
-      th.sort-asc::after {
-        content: ' \21C2';
-      }
-
-      th.sort-desc::after {
-        content: ' \21BE';
-      }
-    </style>
   </head>
   <body>
     <div class="container">
@@ -48,6 +23,17 @@
       
       <div class="row">
         <div class="col">
+          <div class="dropdown d-md-none">
+            <button class="btn btn-dark btn-block dropdown-toggle" type="button" id="sortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Sort by
+            </button>
+            <div class="dropdown-menu w-100" aria-labelledby="sortButton">
+              <a href="#" data-sortkey="date" class="dropdown-item sortable sort-asc">Date / Time</a>
+              <a href="#" data-sortkey="artists" class="dropdown-item sortable">Artists</a>
+              <a href="#" data-sortkey="title" class="dropdown-item sortable">Track</a>
+              <a href="#" data-sortkey="duration" class="dropdown-item sortable">Duration</a>
+            </div>
+          </div>
           <table class="table" id="requestival-table">
             <thead class="thead-dark">
               <tr>

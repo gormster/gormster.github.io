@@ -1,0 +1,59 @@
+#requestival-songs > tr > td:first-child {
+  white-space: nowrap;
+}
+
+th {
+  white-space: nowrap;
+}
+
+th.sortable {
+  cursor: pointer;;
+}
+
+th.sortable:hover {
+  background-color: #777; 
+}
+
+.sortable.sort-asc::after {
+  content: ' \21C2';
+}
+
+.sortable.sort-desc::after {
+  content: ' \21BE';
+}
+
+@media (max-width: 575.98px) { 
+  #requestival-table {
+    display: block;
+  }
+
+  #requestival-table > thead {
+    display: none;
+    flex-direction: column;
+  }
+
+  #requestival-songs > tr {
+    display: block;
+    max-width: 100%;
+    border-top: 1px solid #dee2e6;
+    padding: 0.75rem 0;
+  }
+
+  #requestival-songs > tr > td {
+    display: inline;
+    border: none;
+    padding: 0 0.25rem;
+  }
+
+  /* Time */
+  #requestival-songs > tr > td:nth-child(1) {
+    font-size: 0.8em;
+    float: right;
+  }
+
+  /* Artist */
+  #requestival-songs > tr > td:nth-child(2) {
+    display: block;
+    font-weight: bold;
+  }
+}
