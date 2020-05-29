@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>JJJ Requestival</title>
+    <style type="text/css">
+      #requestival-songs > tr > td:first-child {
+        white-space: nowrap;
+      }
+      
+      th {
+        white-space: nowrap;
+      }
+
+      th.sortable {
+        cursor: pointer;;
+      }
+
+      th.sortable:hover {
+        background-color: #777; 
+      }
+
+      th.sort-asc::after {
+        content: ' \21C2';
+      }
+
+      th.sort-desc::after {
+        content: ' \21BE';
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Requestival songs</h1>
+
+      <div class="row">
+        <div class="col">
+          <p>* Duration isn't necessarily going to be exactly right - I think in some cases it's counting the duration of the link before or after the song.</p>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col">
+          <table class="table" id="requestival-table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col" data-sortkey="date" class="sortable sort-asc">Date / Time</th>
+                <th scope="col" data-sortkey="artists" class="sortable">Artists</th>
+                <th scope="col" data-sortkey="title" class="sortable">Track</th>
+                <th scope="col" data-sortkey="duration" class="sortable">Duration <sup>*</sup></th>
+              </tr>
+            </thead>
+            <tbody id="requestival-songs">
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript">
+      initialise();
+    </script>
+  </body>
+</html>
