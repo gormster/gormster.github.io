@@ -56,4 +56,10 @@ th.sortable:hover {
     display: block;
     font-weight: bold;
   }
+
+  #requestival-songs > tr > td:nth-child(4) {
+    color: #999;
+    font-weight: lighter;
+    font-style: oblique;
+  }
 }
