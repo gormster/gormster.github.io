@@ -12,14 +12,33 @@ async function refresh() {
     items = rawData.map(createItemFromRaw);
 }
 
+// 6am to 9pm Monday-Saturday, 6am-6pm Sunday
+const periods = [25, 26, 27, 28, 29, 30].map(i => [Date.UTC(2020, 4, i - 1, 20, 0, 0), Date.UTC(2020, 4, i, 11, 0, 0)])
+    .concat([[Date.UTC(2020, 5, 30, 20, 0, 0), Date.UTC(2020, 5, 31, 8, 0, 0)]])
+    .map(([start, end]) => [new Date(start), new Date(end)]);
+
 async function fetchNew() {
     let url = new URL('https://music.abcradio.net.au/api/v1/plays/search.json');
     let mostRecent = items.reduce((a, b) => a.date > b.date ? a : b);
+
+    let now = new Date();
+    let until = null;
+    for (p of periods) {
+        if ((p[0] < now) && (p[1] > mostRecent.date)) {
+            until = p[1];
+            break;
+        }
+    }
+
+    if (until === null) {
+        return;
+    }
 
     url.searchParams.append('station','triplej');
     url.searchParams.append("limit", "100");
     url.searchParams.append("order", "asc");
     url.searchParams.append("from", mostRecent.date.toISOString());
+    url.searchParams.append("to", until.toISOString());
 
     let response = await fetch(url);
     let rawData = await response.json();
@@ -134,7 +153,7 @@ function initialise() {
     refresh().then (function() {
         return fetchNew();
     }).then(function() {
-        // sortList(...currentSort);
+        sortList(...currentSort);
         $('.sortable').on('click', changeSort);
     });
 
