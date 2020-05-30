@@ -1,12 +1,37 @@
-let items;
+let items = [];
+
+function createItemFromRaw(item) {
+    let date = new Date(item['played_time'].split('+')[0]);
+    let artists = item.recording.artists.map(o => o.name).join(', ');
+    return {id: item.arid, date, artists, title: item.recording.title, duration: item.recording.duration, links: item.recording.links };
+}
+
 async function refresh() {
     let response = await fetch('requestival.json');
     let rawData = await response.json();
-    items = rawData.map(item => {
-        let date = new Date(item['played_time'].split('+')[0]);
-        let artists = item.recording.artists.map(o => o.name).join(', ');
-        return {date, artists, title: item.recording.title, duration: item.recording.duration, links: item.recording.links };
-    });
+    items = rawData.map(createItemFromRaw);
+}
+
+async function fetchNew() {
+    let url = new URL('https://music.abcradio.net.au/api/v1/plays/search.json');
+    let mostRecent = items.reduce((a, b) => a.date > b.date ? a : b);
+
+    url.searchParams.append('station','triplej');
+    url.searchParams.append("limit", "100");
+    url.searchParams.append("order", "asc");
+    url.searchParams.append("from", mostRecent.date.toISOString());
+
+    let response = await fetch(url);
+    let rawData = await response.json();
+
+    let existingARIDs = new Set(items.map(o => o.id))
+    for (let newItem of rawData.items) {
+        if(existingARIDs.has(newItem['arid'])) continue;
+        items.push(createItemFromRaw(newItem));
+    }
+
+    sortList(...currentSort);
+
 }
 
 const timeFormatter = new Intl.DateTimeFormat(undefined, {
@@ -107,7 +132,14 @@ function sortList(key, desc) {
 
 function initialise() {
     refresh().then (function() {
-        sortList(...currentSort);
+        return fetchNew();
+    }).then(function() {
+        // sortList(...currentSort);
         $('.sortable').on('click', changeSort);
     });
+
+
+
+    // Fetch new songs every 10 mins
+    setInterval(fetchNew, 600_000);
 }
