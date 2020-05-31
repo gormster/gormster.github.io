@@ -21,19 +21,6 @@ async function fetchNew() {
     let url = new URL('https://music.abcradio.net.au/api/v1/plays/search.json');
     let mostRecent = items.reduce((a, b) => a.date > b.date ? a : b);
 
-    let now = new Date();
-    let until = null;
-    for (p of periods) {
-        if ((p[0] < now) && (p[1] > mostRecent.date)) {
-            until = p[1];
-            break;
-        }
-    }
-
-    if (until === null) {
-        return;
-    }
-
     url.searchParams.append('station','triplej');
     url.searchParams.append("limit", "100");
     url.searchParams.append("order", "asc");
