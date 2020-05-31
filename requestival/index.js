@@ -25,7 +25,6 @@ async function fetchNew() {
     url.searchParams.append("limit", "100");
     url.searchParams.append("order", "asc");
     url.searchParams.append("from", mostRecent.date.toISOString());
-    url.searchParams.append("to", until.toISOString());
 
     let response = await fetch(url);
     let rawData = await response.json();
