@@ -34,7 +34,7 @@ def get_days_songs(day):
     print(f'Getting day {day}')
 
     start = datetime(year=2020,month=5,day=day,hour=6,tzinfo=tzinfo)
-    end = datetime(year=2020,month=5,day=day,hour=21,tzinfo=tzinfo)
+    end = datetime(year=2020,month=5,day=day,hour=(21 if day < 31 else 18),tzinfo=tzinfo)
 
     items = []
     offset = 0
@@ -100,6 +100,7 @@ if __name__ == '__main__':
     import json
     parser = argparse.ArgumentParser(description='Update the JSON file')
     parser.add_argument('--full', type=argparse.FileType('w'))
+    parser.add_argument('--day', type=int)
     parser.add_argument('--update', type=argparse.FileType('r+'))
     args = parser.parse_args()
 
@@ -111,8 +112,9 @@ if __name__ == '__main__':
         file.close()
     elif args.update:
         file = args.update
+        day = args.day or datetime.now().day
         items = json.load(file)
-        new = get_days_songs(datetime.now().day)
+        new = get_days_songs(day)
         merge_items(items, new)
         file.seek(0)
         file.truncate()

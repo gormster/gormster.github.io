@@ -36,7 +36,6 @@ async function fetchNew() {
     }
 
     sortList(...currentSort);
-
 }
 
 const timeFormatter = new Intl.DateTimeFormat(undefined, {
@@ -103,7 +102,8 @@ function comp(a, b) {
     return 0;
 }
 
-let currentSort = ['date', true];
+// Change default sort now event is ended
+let currentSort = ['date', false];
 function changeSort(evt) {
     let key = evt.target.dataset.sortkey;
     let [currentKey, desc] = currentSort;
@@ -136,15 +136,12 @@ function sortList(key, desc) {
 }
 
 function initialise() {
-    refresh().then (function() {
-        return fetchNew();
-    }).then(function() {
+    refresh().then(function() {
         sortList(...currentSort);
         $('.sortable').on('click', changeSort);
     });
 
-
-
     // Fetch new songs every 10 mins
-    setInterval(fetchNew, 600_000);
+    // Disabled now the thing is over
+    // setInterval(fetchNew, 600_000);
 }
